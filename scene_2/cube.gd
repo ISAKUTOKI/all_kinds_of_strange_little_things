@@ -10,7 +10,8 @@ var original_cubies_name: Array[String] = []
 
 var target_cubies: Array[MeshInstance3D] = []
 var target_cubies_name: Array[String] = []
-
+var is_rotating: bool = false
+@export var rotate_time: float = 0.2
 var rotation_records := []
 var step: int = 0
 
@@ -89,14 +90,14 @@ func _get_target_cubies(index: RotateIndex):
 
 
 func _rotate_target_cubies(index: Cube.RotateIndex, direction: int, is_recording: bool = true):
+	# 安全检查
+	if is_rotating:
+		return
+	is_rotating = true
+	# 获取
 	target_cubies.clear()
 	target_cubies_name.clear()
 	_get_target_cubies(index)
-	#print("index: ", index)
-	#print("direction: ", direction)
-	#print("target_cubies: ", target_cubies_name)
-	#print("number: ", target_cubies.size())
-	#print("________________________________________")
 	# 质心
 	var rotator := Node3D.new()
 	add_child(rotator)
@@ -115,8 +116,12 @@ func _rotate_target_cubies(index: Cube.RotateIndex, direction: int, is_recording
 		RotateIndex.z0, RotateIndex.z1, RotateIndex.z2:
 			axis = Vector3(0, 0, 1)
 	# 旋转
-	#var tween = create_tween()
-	rotator.rotate(axis, deg_to_rad(90 * direction))
+	var tween = create_tween()
+	if is_recording:
+		tween.tween_property(rotator, "rotation_degrees", rotator.rotation + axis * 90 * direction, rotate_time)
+	else:
+		tween.tween_property(rotator, "rotation_degrees", rotator.rotation + axis * 90 * direction, rotate_time * 0.4)
+	await tween.finished
 	# 重置父级
 	for cubie in target_cubies:
 		cubie.reparent(cube)
@@ -125,6 +130,7 @@ func _rotate_target_cubies(index: Cube.RotateIndex, direction: int, is_recording
 	if is_recording:
 		step += 1
 		_record_rotate(index, direction)
+	is_rotating = false
 
 
 func _record_rotate(index, direction):
@@ -158,7 +164,7 @@ func _restore_cube(is_specified_step: bool = false, restore_step: int = 0):
 		_rotate_target_cubies(index, dir, false)
 		restore_step -= 1
 		step -= 1
-		await get_tree().create_timer(0.15).timeout
+		await get_tree().create_timer(rotate_time * 0.5).timeout
 
 
 func _get_all_cubies():
@@ -170,4 +176,4 @@ func _get_all_cubies():
 			original_cubies_name.push_back(cubie.name)
 
 #TODO 判断旋转方向的逻辑
-#TODO 旋转魔方的逻辑
+#TODO 旋转整个魔方的逻辑

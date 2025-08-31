@@ -33,8 +33,8 @@ func _input(event: InputEvent) -> void:
 
 func _outline():
 	if last_target != target:
-		if last_target != null:
-			last_target.set_surface_override_material(0, original_material)
+		if last_target:
+			last_target.material_override = original_material
 		last_target = target
-		if target != null:
-			target.set_surface_override_material(0, outline_material)
+		if target:
+			target.material_override = outline_material
