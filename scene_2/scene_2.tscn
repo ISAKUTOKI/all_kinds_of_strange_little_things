@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=3 uid="uid://duyvw62u8f47b"]
+
+[ext_resource type="PackedScene" uid="uid://b0uuvxkcyxpn1" path="res://scene_2/cube.tscn" id="1_mnn0d"]
+[ext_resource type="PackedScene" uid="uid://ptn1g5kbvvhf" path="res://scene_2/main_camera.tscn" id="2_cqsj1"]
+[ext_resource type="Script" uid="uid://eou6ib1xqlta" path="res://scene_2/test.gd" id="3_5o4al"]
+[ext_resource type="Script" uid="uid://b5folfrfjq5kx" path="res://scene_2/cube_controller.gd" id="3_ybxm7"]
+[ext_resource type="FontFile" uid="uid://dtvs3syl0d80g" path="res://fonts/WenQuanYi.Bitmap.Song.15px.ttf" id="5_crxdh"]
+
+[node name="Scene2" type="Node3D"]
+
+[node name="Cube" parent="." instance=ExtResource("1_mnn0d")]
+
+[node name="MainCamera" parent="." instance=ExtResource("2_cqsj1")]
+transform = Transform3D(1, 0, 0, 0, 0.972431, 0.233191, 0, -0.233191, 0.972431, 0, 0.723544, 2.13251)
+
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Lights"]
+transform = Transform3D(0.900501, 0, -0.434854, 0.360332, 0.5598, 0.74618, 0.243431, -0.828627, 0.504101, -8.90727, 12.4707, 5.36153)
+
+[node name="CubeController" type="Node" parent="."]
+script = ExtResource("3_ybxm7")
+
+[node name="test" type="Node3D" parent="."]
+script = ExtResource("3_5o4al")
+
+[node name="Label" type="Label" parent="test"]
+offset_left = 34.0
+offset_top = 90.0
+offset_right = 269.0
+offset_bottom = 179.0
+theme_override_fonts/font = ExtResource("5_crxdh")
+theme_override_font_sizes/font_size = 36
+text = "步数："
+
+[node name="Button" type="Button" parent="test"]
+offset_left = 19.0
+offset_top = 20.0
+offset_right = 177.0
+offset_bottom = 64.0
+theme_override_fonts/font = ExtResource("5_crxdh")
+theme_override_font_sizes/font_size = 36
+text = "随机	转一下"
+
+[node name="Button2" type="Button" parent="test"]
+offset_left = 215.0
+offset_top = 22.0
+offset_right = 373.0
+offset_bottom = 66.0
+theme_override_fonts/font = ExtResource("5_crxdh")
+theme_override_font_sizes/font_size = 36
+text = "重置魔方"
+
+[node name="Button3" type="Button" parent="test"]
+offset_left = 412.0
+offset_top = 22.0
+offset_right = 570.0
+offset_bottom = 66.0
+theme_override_fonts/font = ExtResource("5_crxdh")
+theme_override_font_sizes/font_size = 36
+text = "退回魔方"
+
+[connection signal="pressed" from="test/Button" to="test" method="_on_button_pressed"]
+[connection signal="pressed" from="test/Button2" to="test" method="_on_button_2_pressed"]
+[connection signal="pressed" from="test/Button3" to="test" method="_on_button_3_pressed"]

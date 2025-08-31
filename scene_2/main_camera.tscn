@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ptn1g5kbvvhf"]
+
+[ext_resource type="Script" uid="uid://jikh028r3iqn" path="res://scene_2/main_camera.gd" id="1_b0wdp"]
+
+[node name="MainCamera" type="Camera3D"]
+script = ExtResource("1_b0wdp")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
