@@ -7,6 +7,8 @@ var last_target: MeshInstance3D = null
 var original_material = preload("res://scene_2/cube_material.tres")
 var outline_material = preload("res://scene_2/cube_outline_material.tres")
 
+var last_mouse_pos: Vector2
+
 
 func _process(_delta: float) -> void:
 	_outline()
