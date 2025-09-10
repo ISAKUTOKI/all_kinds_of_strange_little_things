@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://duyvw62u8f47b"]
+[gd_scene load_steps=7 format=3 uid="uid://duyvw62u8f47b"]
 
 [ext_resource type="PackedScene" uid="uid://b0uuvxkcyxpn1" path="res://scene_2/cube.tscn" id="1_mnn0d"]
 [ext_resource type="PackedScene" uid="uid://ptn1g5kbvvhf" path="res://scene_2/main_camera.tscn" id="2_cqsj1"]
 [ext_resource type="Script" uid="uid://eou6ib1xqlta" path="res://scene_2/test.gd" id="3_5o4al"]
 [ext_resource type="Script" uid="uid://b5folfrfjq5kx" path="res://scene_2/cube_controller.gd" id="3_ybxm7"]
 [ext_resource type="FontFile" uid="uid://dtvs3syl0d80g" path="res://fonts/WenQuanYi.Bitmap.Song.15px.ttf" id="5_crxdh"]
+[ext_resource type="Script" uid="uid://bbex2kfisbxpc" path="res://scene_2/cube_rotator.gd" id="6_da0di"]
 
 [node name="Scene2" type="Node3D"]
 
@@ -59,6 +60,9 @@ offset_bottom = 66.0
 theme_override_fonts/font = ExtResource("5_crxdh")
 theme_override_font_sizes/font_size = 36
 text = "退回魔方"
+
+[node name="CubeRotator" type="Node" parent="."]
+script = ExtResource("6_da0di")
 
 [connection signal="pressed" from="test/Button" to="test" method="_on_button_pressed"]
 [connection signal="pressed" from="test/Button2" to="test" method="_on_button_2_pressed"]
